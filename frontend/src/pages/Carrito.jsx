@@ -24,4 +24,18 @@ function obtenerUsuariosActivo(){
         navigate("/productos");
     }
 
+    if(carrito.length === 0){
+        return(
+            <main className="container my-4">
+                <section className="carrito">
+                    <h2>Carrito de Compras</h2>
+                    <div className="carrito-vacio m-4"></div>
+                    <h3>Tu carrito esta vacio</h3>
+                    <p>Agrega productos de nuestro catalogo para continuar</p>
+                </section>
+            </main>
+
+        )
+    }
+
     export default Carrito
