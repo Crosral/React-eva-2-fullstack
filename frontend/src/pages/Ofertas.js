@@ -2,7 +2,7 @@ import { useToast } from "../context/ToastContext";
 import { useCart } from "../context/CartContext";
 import { leerProductosEnOferta } from "../data/productos";
 
-export default function Ofertas() {
+function Ofertas() {
   const productos = leerProductosEnOferta();
   const { agregarProducto } = useCart();
   const { mostrarToast } = useToast();
@@ -57,3 +57,5 @@ export default function Ofertas() {
     </main>
   );
 }
+
+export default Ofertas()

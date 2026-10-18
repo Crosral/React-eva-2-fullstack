@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useUsuario } from "../context/UsuarioContext";
 import { DOMINIOS_PERMITIDOS } from "../data/usuarios";
 
-export default function InicioSesion() {
+ function InicioSesion() {
   const { iniciarSesion } = useUsuario();
   const navigate = useNavigate();
 
@@ -91,3 +91,5 @@ export default function InicioSesion() {
     </main>
   );
 }
+
+export default InicioSesion()

@@ -1,4 +1,4 @@
-export default function Nosotros() {
+ function Nosotros() {
   return (
     <main className="container my-5">
       <h1 className="text-center mb-4">Nosotros</h1>
@@ -27,3 +27,5 @@ export default function Nosotros() {
     </main>
   );
 }
+
+export default Nosotros()

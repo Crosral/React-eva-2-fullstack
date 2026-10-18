@@ -108,6 +108,20 @@ export const productosFijos = [
 
 const CLAVE_STORAGE = "productos";
 
+const CLAVE_AJUSTES_STOCK = "stockAjustes";
+
+function leerAjustesStock() {
+  try {
+    return JSON.parse(localStorage.getItem(CLAVE_AJUSTES_STOCK)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function guardarAjustesStock(ajustes) {
+  localStorage.setItem(CLAVE_AJUSTES_STOCK, JSON.stringify(ajustes));
+}
+
 // ==========================================
 // CRUD sobre los productos agregados desde el admin
 // (persisten en localStorage, igual que en la Evaluación 1)
@@ -168,4 +182,26 @@ export function leerProductosEnOferta() {
   return leerTodosLosProductos().filter(
     (p) => p.precioOferta && p.precioOferta < p.precio
   );
+}
+
+export function descontarStock(codigo, cantidad) {
+  const productosAdmin = leerProductosAdmin();
+  const indiceAdmin = productosAdmin.findIndex((p) => p.codigo === codigo);
+
+  if (indiceAdmin !== -1) {
+    // Producto creado desde el admin: vive directo en localStorage["productos"]
+    const nuevoStock = Math.max(0, productosAdmin[indiceAdmin].stock - cantidad);
+    productosAdmin[indiceAdmin] = { ...productosAdmin[indiceAdmin], stock: nuevoStock };
+    guardarProductosAdmin(productosAdmin);
+    return;
+  }
+
+  // Producto fijo (hardcodeado en el código): su stock se guarda aparte, como "ajuste"
+  const fijo = productosFijos.find((p) => p.codigo === codigo);
+  if (!fijo) return;
+
+  const ajustes = leerAjustesStock();
+  const stockActual = ajustes[codigo] !== undefined ? ajustes[codigo] : fijo.stock;
+  ajustes[codigo] = Math.max(0, stockActual - cantidad);
+  guardarAjustesStock(ajustes);
 }
