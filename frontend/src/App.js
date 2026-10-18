@@ -11,6 +11,8 @@ import CategoriaDetalle from "./pages/CategoriaDetalle";
 import Checkout from "./pages/Checkout";
 import CompraExitosa from "./pages/CompraExitosa";
 import CompraFallida from "./pages/CompraFallida";
+import Admin from "./pages/Admin";
+import Ofertas from "./pages/Ofertas";
 
  function App() {
   return (
@@ -28,6 +30,8 @@ import CompraFallida from "./pages/CompraFallida";
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/compra-exitosa" element={<CompraExitosa />} />
         <Route path="/compra-fallida" element={<CompraFallida />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/ofertas" element={<Ofertas />} />
       </Routes>
     </>
   );

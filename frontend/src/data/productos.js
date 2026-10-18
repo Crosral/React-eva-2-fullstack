@@ -30,6 +30,7 @@ export const productosFijos = [
     descripcion:
       "Rollo aislante térmico de aluminio de 1,20 m x 10 m. Se instala bajo techumbres y en muros para reducir la pérdida de calor en invierno y el ingreso de calor en verano.",
     precio: 6990,
+    precioOferta: 5490, 
     stock: 20,
     stockCritico: 5,
     categoria: "Materiales",
@@ -74,6 +75,7 @@ export const productosFijos = [
     descripcion:
       "Adhesivo para trabajos en madera, útil en carpintería, reparación de muebles y manualidades. Genera uniones firmes y es fácil de aplicar.",
     precio: 7000,
+    precioOferta: 5490,
     stock: 20,
     stockCritico: 5,
     categoria: "Adhesivos",
@@ -96,6 +98,7 @@ export const productosFijos = [
     descripcion:
       "Mortero impermeabilizante de 500 g para sellar superficies frente a la humedad y filtraciones. Se usa en muros, terrazas y zonas expuestas al agua.",
     precio: 12750,
+    precioOferta: 9990,
     stock: 15,
     stockCritico: 5,
     categoria: "Materiales",
@@ -160,3 +163,9 @@ export const comunasPorRegion = {
   ARAUCANIA: ["Temuco", "Padre Las Casas", "Villarrica", "Pucón"],
   NUBLE: ["Chillán", "Linares", "Longaví", "Concepción"],
 };
+
+export function leerProductosEnOferta() {
+  return leerTodosLosProductos().filter(
+    (p) => p.precioOferta && p.precioOferta < p.precio
+  );
+}
