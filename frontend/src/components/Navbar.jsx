@@ -1,5 +1,14 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
+import { useUsuario } from "../context/UsuarioContext";
+// dentro del componente:
+const { usuarioActivo, cerrarSesion } = useUsuario();
+const navigate = useNavigate();
+
+function manejarCerrarSesion() {
+  cerrarSesion();
+  navigate("/inicio-sesion");
+}
 
 export default function Navbar() {
   const { carrito } = useCart();
@@ -36,15 +45,29 @@ export default function Navbar() {
                 Productos
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/inicio-sesion">
-                Iniciar Sesión
-              </Link>
-            </li>
+            {usuarioActivo ? (
+              <li className="nav-item dropdown">
+                <span className="nav-link">
+                  {usuarioActivo.nombre} ({usuarioActivo.rol})
+                </span>
+                <button className="btn btn-sm btn-outline-secondary ms-2" onClick={manejarCerrarSesion}>
+                  Cerrar sesión
+                </button>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" to="/inicio-sesion">
+                  Iniciar Sesión
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link className="nav-link" to="/carrito">
                 🛒 Carrito ({totalUnidades})
               </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/categorias">Categorías</Link>
             </li>
           </ul>
         </div>
@@ -52,3 +75,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

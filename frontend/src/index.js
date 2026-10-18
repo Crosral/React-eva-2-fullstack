@@ -6,6 +6,7 @@ import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import { UsuarioProvider } from "./context/UsuarioContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -13,9 +14,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ToastProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
+        <UsuarioProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </UsuarioProvider>
       </ToastProvider>
     </BrowserRouter>
   </React.StrictMode>

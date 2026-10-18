@@ -5,6 +5,12 @@ import Productos from "./pages/Productos.jsx";
 import DetalleProducto from "./pages/DetalleProducto.jsx";
 import Carrito from "./pages/Carrito.jsx";
 import InicioSesion from "./pages/InicioSesion.jsx";
+import Registro from "./pages/Registro";
+import Categorias from "./pages/Categorias";
+import CategoriaDetalle from "./pages/CategoriaDetalle";
+import Checkout from "./pages/Checkout";
+import CompraExitosa from "./pages/CompraExitosa";
+import CompraFallida from "./pages/CompraFallida";
 
  function App() {
   return (
@@ -16,6 +22,12 @@ import InicioSesion from "./pages/InicioSesion.jsx";
         <Route path="/productos/:codigo" element={<DetalleProducto />} />
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/inicio-sesion" element={<InicioSesion />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/categorias" element={<Categorias />} />
+        <Route path="/categorias/:categoria" element={<CategoriaDetalle />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/compra-exitosa" element={<CompraExitosa />} />
+        <Route path="/compra-fallida" element={<CompraFallida />} />
       </Routes>
     </>
   );
