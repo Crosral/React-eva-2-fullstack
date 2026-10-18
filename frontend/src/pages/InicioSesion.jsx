@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useUsuario } from "../context/UsuarioContext";
-import { DOMINIOS_PERMITIDOS } from "../data/usuarios";
+import { esCorreoValido } from "../utils/validarCorreo";
 
  function InicioSesion() {
   const { iniciarSesion } = useUsuario();
@@ -15,11 +15,13 @@ import { DOMINIOS_PERMITIDOS } from "../data/usuarios";
     e.preventDefault();
 
     const correoIngresado = correo.trim().toLowerCase();
-    const dominioValido = DOMINIOS_PERMITIDOS.some((d) => correoIngresado.endsWith(d));
 
     const nuevosErrores = {};
-    if (correoIngresado === "" || correoIngresado.length > 100 || !dominioValido) {
+    if (correoIngresado === "" || correoIngresado.length > 100 || !esCorreoValido(correoIngresado)) {
       nuevosErrores.correo = true;
+    }
+    if (clave.length < 4 || clave.length > 10) {
+      nuevosErrores.clave = true;
     }
     if (clave.length < 4 || clave.length > 10) {
       nuevosErrores.clave = true;
@@ -92,4 +94,4 @@ import { DOMINIOS_PERMITIDOS } from "../data/usuarios";
   );
 }
 
-export default InicioSesion()
+export default InicioSesion

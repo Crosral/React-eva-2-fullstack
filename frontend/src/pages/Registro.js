@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useUsuario } from "../context/UsuarioContext";
 import { validarRunChile } from "../utils/validarRunChile";
-import { DOMINIOS_PERMITIDOS } from "../data/usuarios";
 import { comunasPorRegion } from "../data/productos";
+import { esCorreoValido } from "../utils/validarCorreo";
 
 const estadoInicial = {
   run: "",
@@ -47,8 +47,7 @@ export default function Registro() {
     }
 
     const correo = valores.correo.trim().toLowerCase();
-    const dominioValido = DOMINIOS_PERMITIDOS.some((d) => correo.endsWith(d));
-    if (!correo || correo.length > 100 || !dominioValido) nuevosErrores.correo = true;
+    if (!correo || correo.length > 100 || !esCorreoValido(correo)) nuevosErrores.correo = true;
 
     if (valores.telefono.trim() !== "" && valores.telefono.trim().length < 9) {
       nuevosErrores.telefono = true;

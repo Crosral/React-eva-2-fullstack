@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { obtenerUsuarios, guardarUsuarios, DOMINIOS_PERMITIDOS } from "../../data/usuarios";
+import { obtenerUsuarios, guardarUsuarios} from "../../data/usuarios";
 import { validarRunChile } from "../../utils/validarRunChile";
 import { comunasPorRegion } from "../../data/productos";
 import { useUsuario } from "../../context/UsuarioContext";
+import { esCorreoValido } from "../utils/validarCorreo";
 
 const estadoInicial = {
   run: "", nombre: "", apellidos: "", correo: "", fechaNacimiento: "",
@@ -62,8 +63,7 @@ export default function AdminUsuarios() {
     if (valores.nombre.trim() === "" || valores.nombre.length > 50) e.nombre = "Nombre obligatorio, máximo 50 caracteres.";
     if (valores.apellidos.trim() === "" || valores.apellidos.length > 100) e.apellidos = "Apellidos obligatorios, máximo 100 caracteres.";
 
-    const dominioValido = DOMINIOS_PERMITIDOS.some((d) => correo.endsWith(d));
-    if (correo === "" || correo.length > 100 || !dominioValido) e.correo = "Correo inválido.";
+    if (correo === "" || correo.length > 100 || !esCorreoValido(correo)) e.correo = "Correo inválido.";
 
     if (valores.region === "" || valores.comuna === "") e.region = "Selecciona región y comuna.";
     if (valores.direccion.trim() === "" || valores.direccion.length > 300) e.direccion = "Dirección obligatoria, máximo 300 caracteres.";

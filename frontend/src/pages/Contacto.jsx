@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-const DOMINIOS_PERMITIDOS = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
+import { esCorreoValido } from "../utils/validarCorreo";
 
 export default function Contacto() {
   const [nombre, setNombre] = useState("");
@@ -17,9 +16,7 @@ export default function Contacto() {
     }
 
     const correoIngresado = correo.trim().toLowerCase();
-    const dominioValido = DOMINIOS_PERMITIDOS.some((d) => correoIngresado.endsWith(d));
-
-    if (correoIngresado !== "" && (correoIngresado.length > 100 || !dominioValido)) {
+    if (correoIngresado !== "" && (correoIngresado.length > 100 || !esCorreoValido(correoIngresado))) {
       nuevosErrores.correo = true;
     }
 
