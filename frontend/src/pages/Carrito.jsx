@@ -1,31 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useCart } from "CartContext.jsx";
-import { useNavigate } from "react-router-dom";
-// dentro del componente:
-const navigate = useNavigate();
+import { useCart } from "../context/CartContext";
 
-function obtenerUsuariosActivo(){
-    try{
-        return JSON.parse(localStorage.getItem("usuarioActivo"));
-    }catch{
-        return null;
-    }
-}
-
-    function Carrito() {
-        useCart();
-        const Navigate = useNavigate();
-    }
-
-    function manejarFinalizarCompra() {
-    const orden = finalizarCompra(obtenerUsuarioActivo());
-    if (!orden) {
-      alert("Tu carrito está vacío.");
-      return;
-    }
-    alert("¡Gracias por tu compra!");
-    navigate("/productos");
-  }
+function Carrito() {
+  const { carrito, cambiarCantidad, eliminarProducto, vaciarCarrito, total } = useCart();
+  const navigate = useNavigate();
 
   if (carrito.length === 0) {
     return (
@@ -102,17 +80,17 @@ function obtenerUsuariosActivo(){
               Vaciar carrito
             </button>
             <button
-            className="btn btn-success"
-            disabled={carrito.length === 0}
-            onClick={() => navigate("/checkout")}
+              className="btn btn-success"
+              disabled={carrito.length === 0}
+              onClick={() => navigate("/checkout")}
             >
-            Finalizar compra
+              Finalizar compra
             </button>
           </div>
         </div>
       </section>
     </main>
   );
+}
 
-
-    export default Carrito
+export default Carrito;

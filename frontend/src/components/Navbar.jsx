@@ -1,18 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
 import { useUsuario } from "../context/UsuarioContext";
-// dentro del componente:
-const { usuarioActivo, cerrarSesion } = useUsuario();
-const navigate = useNavigate();
-
-function manejarCerrarSesion() {
-  cerrarSesion();
-  navigate("/inicio-sesion");
-}
 
 export default function Navbar() {
   const { carrito } = useCart();
   const totalUnidades = carrito.reduce((acc, p) => acc + p.cantidad, 0);
+  const { usuarioActivo, cerrarSesion } = useUsuario();
+  const navigate = useNavigate();
+
+  function manejarCerrarSesion() {
+    cerrarSesion();
+    navigate("/inicio-sesion");
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -78,4 +77,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

@@ -1,29 +1,31 @@
-export function validarRunChile(run) {
-  const runLimpio = run.trim().toUpperCase();
+const CLAVE_STORAGE = "usuarios";
 
-  if (!/^[0-9]{6,8}[0-9K]$/.test(runLimpio)) {
-    return false;
+export function obtenerUsuarios() {
+  try {
+    return JSON.parse(localStorage.getItem(CLAVE_STORAGE)) || [];
+  } catch {
+    return [];
   }
-
-  const cuerpo = runLimpio.slice(0, -1);
-  const dvIngresado = runLimpio.slice(-1);
-
-  let suma = 0;
-  let multiplicador = 2;
-
-  for (let i = cuerpo.length - 1; i >= 0; i--) {
-    suma += Number(cuerpo[i]) * multiplicador;
-    multiplicador++;
-    if (multiplicador > 7) multiplicador = 2;
-  }
-
-  const resto = suma % 11;
-  const resultado = 11 - resto;
-
-  let dvCalculado;
-  if (resultado === 11) dvCalculado = "0";
-  else if (resultado === 10) dvCalculado = "K";
-  else dvCalculado = resultado.toString();
-
-  return dvIngresado === dvCalculado;
 }
+
+export function guardarUsuarios(usuarios) {
+  localStorage.setItem(CLAVE_STORAGE, JSON.stringify(usuarios));
+}
+
+export function crearAdminInicial() {
+  const usuarios = obtenerUsuarios();
+  const existeAdmin = usuarios.some((u) => u.correo === "admin@duoc.cl");
+
+  if (!existeAdmin) {
+    usuarios.push({
+      nombre: "Administrador",
+      apellidos: "Sistema",
+      correo: "admin@duoc.cl",
+      clave: "admin123",
+      rol: "Administrador",
+    });
+    guardarUsuarios(usuarios);
+  }
+}
+
+export const DOMINIOS_PERMITIDOS = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
