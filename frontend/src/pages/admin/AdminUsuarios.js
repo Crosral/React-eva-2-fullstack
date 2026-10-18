@@ -3,7 +3,7 @@ import { obtenerUsuarios, guardarUsuarios} from "../../data/usuarios";
 import { validarRunChile } from "../../utils/validarRunChile";
 import { comunasPorRegion } from "../../data/productos";
 import { useUsuario } from "../../context/UsuarioContext";
-import { esCorreoValido } from "../utils/validarCorreo";
+import { esCorreoValido } from "../../utils/validarCorreo";
 
 const estadoInicial = {
   run: "", nombre: "", apellidos: "", correo: "", fechaNacimiento: "",

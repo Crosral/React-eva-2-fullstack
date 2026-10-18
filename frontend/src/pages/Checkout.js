@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useUsuario } from "../context/UsuarioContext";
 import { comunasPorRegion } from "../data/productos";
+import { esCorreoValido } from "../utils/validarCorreo";
 
 export default function Checkout() {
   const { carrito, total, crearOrden, vaciarCarrito } = useCart();
@@ -39,7 +40,7 @@ export default function Checkout() {
     const nuevosErrores = {};
 
     if (!valores.nombre.trim()) nuevosErrores.nombre = true;
-    if (!valores.correo.trim()) nuevosErrores.correo = true;
+    if (!valores.correo.trim() || !esCorreoValido(valores.correo)) nuevosErrores.correo = true;
     if (!valores.region) nuevosErrores.region = true;
     if (!valores.comuna) nuevosErrores.comuna = true;
     if (!valores.direccion.trim() || valores.direccion.length > 300) nuevosErrores.direccion = true;
